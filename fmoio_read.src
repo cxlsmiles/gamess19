@@ -1,0 +1,57 @@
+!*MODULE fmoio   *DECK zsymnum
+      subroutine zsymnum(atninp,atnout,imode)
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      parameter (MXEL=137)
+      character*8 atninp
+      character*4 atnout,atmlab(MXEL)
+!
+      DATA ATMLAB/'H   ','HE  ','LI  ','BE  ','B   ','C   ', &
+                 'N   ','O   ','F   ','NE  ','NA  ','MG  ', &
+                 'AL  ','SI  ','P   ','S   ','CL  ','AR  ', &
+                 'K   ','CA  ','SC  ','TI  ','V   ','CR  ', &
+                 'MN  ','FE  ','CO  ','NI  ','CU  ','ZN  ', &
+                 'GA  ','GE  ','AS  ','SE  ','BR  ','KR  ', &
+                 'RB  ','SR  ','Y   ','ZR  ','NB  ','MO  ', &
+                 'TC  ','RU  ','RH  ','PD  ','AG  ','CD  ', &
+                 'IN  ','SN  ','SB  ','TE  ','I   ','XE  ', &
+                 'CS  ','BA  ','LA  ','CE  ','PR  ','ND  ', &
+                 'PM  ','SM  ','EU  ','GD  ','TB  ','DY  ', &
+                 'HO  ','ER  ','TM  ','YB  ','LU  ','HF  ', &
+                 'TA  ','W   ','RE  ','OS  ','IR  ','PT  ', &
+                 'AU  ','HG  ','TL  ','PB  ','BI  ','PO  ', &
+                 'AT  ','RN  ','FR  ','RA  ','AC  ','TH  ', &
+                 'PA  ','U   ','NP  ','PU  ','AM  ','CM  ', &
+                 'BK  ','CF  ','ES  ','FM  ','MD  ','NO  ', &
+                 'LR  ','RF  ','HA  ','SG  ','NS  ','HS  ', &
+                 'MT  ','110 ','111 ','112 ','113 ','114 ', &
+                 '115 ','116 ','117 ','118 ','119 ','120 ', &
+                 '121 ','122 ','123 ','124 ','125 ','126 ', &
+                 '127 ','128 ','129 ','130 ','131 ','132 ', &
+                 '133 ','134 ','135 ','136 ','137 '/
+
+!
+!     This subroutine either finds the atomic number given a text name (imode=0)
+!     or returns the text name given an atomic number imode.
+!
+      if(imode.eq.0) then
+!       first try to see if atninp already contains an integer, possibly
+!       followed by a decimal dot and some other numbers to be ignored.
+        ipos=ifndchr(atninp,8,'.')
+        if(ipos.eq.0) ipos=9
+        read(UNIT=atninp(1:ipos-1),FMT='(I4)',ERR=100) iat
+        imode=iat
+        return
+100     continue
+        do i=1,MXEL
+          if(atmlab(i).eq.atninp(1:4)) then
+            imode=i
+            return
+          endif
+        enddo
+        write(6,*) 'Unknown element: ',atninp
+        call abrt
+      else
+        atnout=atmlab(imode)
+      endif
+      return
+      end

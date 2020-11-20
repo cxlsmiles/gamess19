@@ -1,0 +1,78 @@
+C         dummy file for LIBCCHEM
+c
+      logical function gms_cchem()
+c
+C         Only the first six are ever called,
+c         if the LIBCCHEM implementation is .FALSE.
+c
+      gms_cchem=.false.
+      return
+      end
+c     
+      logical function gms_cchem_cc()
+      gms_cchem_cc=.false.
+      return
+      end
+c     
+      logical function gms_cchem_mp2()
+      gms_cchem_mp2=.false.
+      return
+      end
+c
+      logical function gms_cchem_hf()
+      gms_cchem_hf=.false.
+      return
+      end
+c
+      logical function gms_cchem_ri()
+      gms_cchem_ri=.false.
+      return
+      end
+c
+      subroutine gms_cchem_initialize()
+      return
+      end
+c
+      subroutine gms_cchem_ccsd_energy(E)
+      double precision E(5)
+      do i=1,5
+         E(i) = 0.0d+00
+      enddo
+      call abrt
+      return
+      end
+c
+      subroutine gms_cchem_mp2_energy(E2)
+      double precision E2
+      E2=0.0d+00
+      call abrt
+      return
+      end
+c
+      subroutine gms_cchem_ri_mp2(E2)
+      double precision E2
+      E2=0.0d+00
+      call abrt
+      return
+      end
+c
+      subroutine gms_cchem_hf_fock(D, F, X, CUTOFF)
+      double precision D(*),F(*),X(*),CUTOFF
+      D(1) = CUTOFF
+      F(1) = CUTOFF
+      X(1) = CUTOFF
+      call abrt
+      return
+      end
+c
+      subroutine gms_cchem_df_rhf(x1, x2, x3, x4, x5, cutoff, x6) 
+      double precision x1(*),x2(*),x3(*),x4(*),x5(*),x6(*),CUTOFF
+      x1(1) = CUTOFF
+      x2(1) = CUTOFF
+      x3(1) = CUTOFF
+      x4(1) = CUTOFF
+      x5(1) = CUTOFF
+      x6(1) = CUTOFF
+      call abrt
+      return
+      end

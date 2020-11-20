@@ -1,0 +1,19 @@
+! MODULE MODMNFUN
+!>    @author  Sarom Sok Leang
+!
+!>    @brief   Contains parameters for Minnesota Density Functionals
+!
+!>    @detail  Replaces the following common block:
+!>    COMMON /CM12  / IM12
+!
+!     REVISION HISTORY:
+!>    @date April, 2018 - Initial release
+!
+!>    @param IM12 Toggles MN12/MN15 parameters
+MODULE modmnfun
+
+    IMPLICIT NONE
+
+    INTEGER IM12
+
+END MODULE modmnfun
